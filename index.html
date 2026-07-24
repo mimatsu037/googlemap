@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI×Googleマップで叶える「未経験からのWeb制作」スタートマニュアル - みな</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  background-color: #fcf9f2; /* 優しいクリーム色 */
+  color: #333333;
+}
+.highlight-marker {
+  background: linear-gradient(transparent 60%, #ffcda5 0%);
+  padding-bottom: 2px;
+}
+@keyframes popup {
+  0% { opacity: 0; transform: translate(-50%, 10px); }
+  20% { opacity: 1; transform: translate(-50%, 0); }
+  80% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+.copy-toast {
+  display: none;
+  animation: popup 2s ease-in-out;
+}
+.step-number {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(-3%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+  50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2.5s infinite;
+}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+</style>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#ff8a75',
+        secondary: '#5cbe96',
+        accent: '#ffb347',
+        bgLight: '#fffcf7',
+      }
+    }
+  }
+}
+</script>
+</head>
+<body class="antialiased selection:bg-primary selection:text-white">
+
+<div id="copyToast" class="copy-toast fixed top-5 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-full shadow-lg z-50 items-center text-sm font-semibold">
+  <svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+  コピーしました！
+</div>
+
+<div class="max-w-2xl mx-auto bg-white shadow-xl overflow-hidden min-h-screen">
+
+  <!-- ヘッダー -->
+  <header class="relative bg-gradient-to-br from-red-50 to-orange-50 pt-10 pb-16 px-6 text-center rounded-b-[2rem]">
+    <div class="inline-block bg-primary text-white font-bold px-4 py-1 rounded-full text-sm mb-4 shadow-sm">
+      海外で話題の手法を大公開！
+    </div>
+    <p class="text-gray-600 font-semibold mb-2 text-sm sm:text-base">
+      完全未経験から始める
+    </p>
+    <h1 class="text-2xl sm:text-4xl font-extrabold leading-tight mb-4 text-gray-800">
+      <span class="block text-primary mb-1">AI×Googleマップで叶える</span>
+      <span class="block">「未経験からのWeb制作」</span>
+      <span class="block text-base sm:text-xl mt-2 text-gray-600 font-bold">スタートマニュアル</span>
+    </h1>
+    <p class="text-sm text-gray-700 font-medium mb-8 bg-white/80 py-2 px-4 rounded-xl inline-block shadow-sm">
+      ＼ 1件数万円〜。地域のお店にサイトを贈って感謝される働き方 ／
+    </p>
+    <a href="https://www.instagram.com/mina_ai_fukugyo/" rel="noopener noreferrer" target="_blank" class="flex items-center justify-center bg-white p-3 rounded-2xl shadow-sm border border-orange-100 hover:shadow-md transition-shadow max-w-sm mx-auto group">
+      <img alt="みな" src="https://i.imgur.com/HWua8hF.png" class="w-14 h-14 rounded-full mr-4 border-2 border-primary/20 object-cover" style="object-position: 50% 30%;">
+      <div class="text-left">
+        <p class="text-xs text-gray-500 mb-0.5">AI×SNSで在宅収入を叶える主婦</p>
+        <p class="font-bold text-gray-800 text-sm group-hover:text-primary transition-colors">
+          みな
+          <span class="text-gray-400 font-normal text-xs ml-1">@mina_ai_fukugyo</span>
+        </p>
+      </div>
+      <svg class="w-5 h-5 ml-auto text-gray-300 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </a>
+  </header>
+
+  <!-- ご挨拶 -->
+  <section class="py-12 px-6">
+    <div class="bg-blue-50/50 rounded-3xl p-6 border border-blue-100 relative">
+      <div class="absolute -top-4 -left-2 text-4xl animate-float">💻🗺️</div>
+
+<h3 class="text-xl font-bold text-center text-gray-800 mb-6 pt-2">
+                    こんなこと思ったことありませんか？
+                </h3>
+
+      <ul class="space-y-4 mb-6 pt-2">
+        <li class="flex items-start bg-white p-4 rounded-2xl shadow-sm border border-gray-50">
+          <span class="text-2xl mr-3 shrink-0">😰</span>
+          <span class="text-gray-700 text-sm sm:text-base leading-relaxed">在宅で収入を得たいけれど、<br><strong>まとまった時間が取れない…</strong></span>
+        </li>
+        <li class="flex items-start bg-white p-4 rounded-2xl shadow-sm border border-gray-50">
+          <span class="text-2xl mr-3 shrink-0">😰</span>
+          <span class="text-gray-700 text-sm sm:text-base leading-relaxed"><strong>プログラミングなんて全く分からない…</strong></span>
+        </li>
+      </ul>
+      <div class="bg-white border-2 border-primary/20 rounded-2xl p-5 text-center relative overflow-hidden">
+        <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">💡</div>
+        <p class="font-bold text-gray-800 mb-2 relative z-10">
+          そんな未経験の方でも、<br>
+          <span class="text-primary text-xl inline-block mt-1">【AIツール】×【Googleマップ】</span><br>
+          を組み合わせるだけで、
+        </p>
+        <p class="text-sm text-gray-600 relative z-10">
+          1件数万円〜のWeb制作案件を獲得できる、今海外でも話題の<strong class="text-primary">「逆提案型・Web制作メソッド」</strong>を大公開します！
+        </p>
+      </div>
+    </div>
+    <p class="text-gray-600 text-sm mt-6 leading-relaxed">
+      実はこれ、海外では<strong class="text-gray-800">14歳の少年が月300万円を売り上げた</strong>ことでも話題になった手法。<br>
+      日本でもまだライバルが少ない今のうちに、このマニュアルで「AIを使った賢い働き方」をマスターしてしまいましょう🙌
+    </p>
+  </section>
+
+  <!-- なぜGoogleマップか -->
+  <section class="py-12 px-6 bg-gradient-to-b from-transparent to-green-50/30">
+    <div class="text-center mb-8">
+      <span class="inline-block bg-accent/10 text-accent font-bold px-3 py-1 rounded-full text-sm mb-2 animate-pulse">最強の営業リスト</span>
+      <h3 class="text-2xl font-bold text-gray-800">💡 なぜ「Googleマップ」が最高なのか？</h3>
+    </div>
+    <p class="text-center text-gray-700 mb-8 leading-relaxed text-sm sm:text-base">
+      普段何気なく使っているGoogleマップですが、実はお宝案件の山。<br>
+      狙うべきは、以下の3つが揃ったお店です。
+    </p>
+    <div class="bg-white shadow-md rounded-2xl p-6 border border-gray-100 mb-6">
+      <ul class="space-y-4">
+        <li class="flex items-start p-3 bg-gray-50 rounded-xl">
+          <span class="text-3xl mr-4 shrink-0">⭐</span>
+          <div>
+            <span class="block font-bold text-gray-800">口コミ評価が高く、件数も多い</span>
+            <span class="text-sm text-gray-600">＝ポテンシャルが高い</span>
+          </div>
+        </li>
+        <li class="flex items-start p-3 bg-gray-50 rounded-xl">
+          <span class="text-3xl mr-4 shrink-0">🚫</span>
+          <div>
+            <span class="block font-bold text-gray-800">「ウェブサイト」のリンクがない</span>
+            <span class="text-sm text-gray-600">＝ネット集客の取りこぼしがある</span>
+          </div>
+        </li>
+        <li class="flex items-start p-3 bg-gray-50 rounded-xl">
+          <span class="text-3xl mr-4 shrink-0">🏠</span>
+          <div>
+            <span class="block font-bold text-gray-800">地域に根ざした個人経営のお店</span>
+            <span class="text-sm text-gray-600">＝決裁が早く、話が通りやすい</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="text-center bg-accent/10 p-4 rounded-xl border border-accent/20">
+      <p class="text-sm text-gray-700 font-medium">
+        「素晴らしいサービスを提供しているのに、HPがないお店」に、AIで作ったデモサイトを<span class="font-bold text-red-500">プレゼント感覚でご提案する</span>のが、この手法の最大の魅力です。
+      </p>
+    </div>
+  </section>
+
+  <!-- ロードマップ -->
+  <section class="py-12 px-6 bg-white border-t border-gray-100">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">⏰ スキマ時間で回す！<br>全体ロードマップ</h2>
+    <p class="text-center text-gray-600 mb-8 text-sm">家事や育児の合間、たった<strong class="text-primary">1日30分</strong>で完結します</p>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div class="bg-gray-50 rounded-2xl p-4 text-center border border-gray-100">
+        <span class="step-number text-2xl font-black block mb-1">STEP 1</span>
+        <p class="text-sm font-bold text-gray-800">Googleマップでリサーチ</p>
+        <p class="text-xs text-gray-500 mt-1">10分</p>
+      </div>
+      <div class="bg-gray-50 rounded-2xl p-4 text-center border border-gray-100">
+        <span class="step-number text-2xl font-black block mb-1">STEP 2</span>
+        <p class="text-sm font-bold text-gray-800">AIでHPコード生成</p>
+        <p class="text-xs text-gray-500 mt-1">10分</p>
+      </div>
+      <div class="bg-gray-50 rounded-2xl p-4 text-center border border-gray-100">
+        <span class="step-number text-2xl font-black block mb-1">STEP 3</span>
+        <p class="text-sm font-bold text-gray-800">デモサイトを公開</p>
+        <p class="text-xs text-gray-500 mt-1">5分</p>
+      </div>
+      <div class="bg-gray-50 rounded-2xl p-4 text-center border border-gray-100">
+        <span class="step-number text-2xl font-black block mb-1">STEP 4</span>
+        <p class="text-sm font-bold text-gray-800">提案メッセージ送信</p>
+        <p class="text-xs text-gray-500 mt-1">5分</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP1 -->
+  <section class="py-12 px-6 bg-gray-50 border-t border-gray-100">
+    <div class="text-center mb-6">
+      <span class="step-number text-4xl font-black block mb-1">STEP 1</span>
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center justify-center">
+        <span class="text-3xl mr-2">🔍</span> Googleマップで「提案先」をリサーチ
+      </h2>
+    </div>
+    <p class="text-gray-600 text-center mb-6 text-sm leading-relaxed">
+      お住まいの地域、または思い入れのあるエリアをGoogleマップで検索します。
+    </p>
+    <div class="bg-white shadow-md rounded-2xl overflow-hidden border border-gray-100 mb-6">
+      <p class="font-bold text-gray-800 text-center py-3 border-b bg-gray-50 text-sm">📌 狙い目のお店の条件</p>
+      <table class="w-full text-sm">
+        <tbody>
+          <tr class="border-b border-gray-100">
+            <td class="p-3 font-bold text-gray-700 w-1/3 bg-gray-50/50">評価と口コミ</td>
+            <td class="p-3 text-gray-600">評価4.0以上 / 口コミ30件以上</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3 font-bold text-gray-700 bg-gray-50/50">ウェブサイト</td>
+            <td class="p-3 text-gray-600">「ウェブサイト」ボタンがない、またはリンク切れ</td>
+          </tr>
+          <tr class="border-b border-gray-100">
+            <td class="p-3 font-bold text-gray-700 bg-gray-50/50">お店の規模</td>
+            <td class="p-3 text-gray-600">個人店（全国チェーンは規約上NG）</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-bold text-gray-700 bg-gray-50/50">おすすめ業種</td>
+            <td class="p-3 text-gray-600">カフェ、パン屋、美容室、ネイルサロン、整体院など</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-100 flex items-start">
+      <span class="text-2xl mr-3">🌻</span>
+      <p class="text-sm text-gray-700 leading-relaxed">
+        条件に合うお店を見つけたら、<strong>「営業時間・住所・電話番号」「上位の口コミ5〜10件」「お店の雰囲気やメニューの写真」</strong>をスクリーンショットなどでメモしておきましょう。
+      </p>
+    </div>
+  </section>
+
+  <!-- STEP2 -->
+  <section class="py-12 px-6 bg-white border-t border-gray-100">
+    <div class="text-center mb-6">
+      <span class="step-number text-4xl font-black block mb-1">STEP 2</span>
+      <h2 class="text-xl font-bold text-gray-800 flex items-center justify-center">
+        <span class="text-2xl mr-2">🤖</span> AIにHPのコードを作ってもらう
+      </h2>
+    </div>
+    <p class="text-gray-600 text-center mb-6 text-sm leading-relaxed">
+      ツールはChatGPTでもOKですが、コード生成能力が非常に高い<strong class="text-primary">「Claude（クロード）」</strong>を使うのもおすすめです✨<br>
+      以下のプロンプトをコピーして、AIに送信してください。
+    </p>
+    <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg mb-4 relative">
+      <div class="bg-gray-700 px-4 py-3 flex justify-between items-center border-b border-gray-600">
+        <span class="text-xs font-bold text-gray-300 flex items-center"><span class="mr-1">✨</span> コピペOKプロンプト</span>
+        <button onclick="copyPrompt('prompt1')" class="text-xs bg-primary/80 hover:bg-primary text-white px-4 py-1.5 rounded-full transition-colors flex items-center shadow-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+          コピーする
+        </button>
+      </div>
+      <div class="p-5 overflow-x-auto text-sm text-gray-200 font-mono leading-relaxed whitespace-pre-wrap" id="prompt1">あなたは個人経営の店舗に特化した、経験豊富なWebデザイナーです。
+以下の情報を分析し、お店の空気感が伝わるシンプルで洗練されたホームページ（HTML/CSS）を作成してください。
+
+【店舗情報】
+- 店名：{店名}
+- 業種：{業種}
+- エリア：{地域}
+- お店の雰囲気：（添付画像のスクショから読み取れる特徴を1〜2行で）
+
+【お客様の声（口コミ）】
+（ここにGoogleマップの口コミを5〜10件入力）
+
+【ページ構成】
+1. ファーストビュー：店名 ＋ 魅力的なキャッチコピー ＋ メインビジュアル
+2. お店のこだわり：口コミの傾向から導き出した強み3選
+3. メニュー / サービス内容
+4. 店舗情報（アクセス・営業時間）
+5. アクション（電話番号・予約ボタン）
+
+【デザイン要件】
+- 単一のHTMLファイルで完結させること（&lt;style&gt;タグでCSSを記述）
+- 配色：業種にマッチする、落ち着いたトーンの3色以内で構成
+- レスポンシブ対応（スマホ閲覧に完全最適化）
+- フォント：品のある明朝体、または洗練されたゴシック体
+- デザイン方針：過度な装飾や「売り込み感」を抑え、余白を活かしたデザイン
+
+【出力指定】
+- コピー＆ペーストでそのままブラウザで表示できる完全なHTMLコード
+- 選定したカラーコードとその配色意図（なぜその業種に合うのか）の解説</div>
+    </div>
+    <div class="mt-4 flex bg-yellow-50 p-4 rounded-xl border border-yellow-100 items-start">
+      <span class="text-2xl mr-3">🌻</span>
+      <p class="text-sm text-gray-700 leading-relaxed">
+        AIが数秒〜数十秒で、ホームページの設計図（コード）を出力してくれます！
+      </p>
+    </div>
+  </section>
+
+  <!-- STEP3 -->
+  <section class="py-12 px-6 bg-gray-50 border-t border-gray-100">
+    <div class="text-center mb-6">
+      <span class="step-number text-4xl font-black block mb-1">STEP 3</span>
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center justify-center">
+        <span class="text-3xl mr-2">🌐</span> デモサイトをネット上に公開する
+      </h2>
+    </div>
+    <p class="text-gray-600 text-center mb-6 text-sm leading-relaxed">
+      無料で使える<strong class="text-primary">「Netlify（ネットリファイ）」</strong>を使えば、専門知識ゼロでも一瞬で公開できます。
+    </p>
+    <div class="bg-white shadow-md rounded-2xl p-6 border border-gray-100">
+      <ol class="space-y-4 text-sm text-gray-700">
+        <li class="flex items-start"><span class="font-bold text-primary mr-2">1.</span>パソコンでメモ帳（Macならテキストエディット）を開き、AIが出したコードを貼り付けて「index.html」という名前で保存。</li>
+        <li class="flex items-start"><span class="font-bold text-primary mr-2">2.</span>Netlifyに無料登録・ログイン。</li>
+        <li class="flex items-start"><span class="font-bold text-primary mr-2">3.</span>画面上の「Drag and drop your site output folder here」の点線枠に、保存したファイルをドラッグ＆ドロップ。</li>
+        <li class="flex items-start"><span class="font-bold text-primary mr-2">4.</span>数秒で公開URL（https://〜）が発行されます！</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- STEP4 -->
+  <section class="py-12 px-6 bg-white border-t border-gray-100">
+    <div class="text-center mb-6">
+      <span class="step-number text-4xl font-black block mb-1">STEP 4</span>
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center justify-center">
+        <span class="text-3xl mr-2">💌</span> 「プレゼント」として提案メッセージを送る
+      </h2>
+    </div>
+    <div class="bg-blue-50/50 rounded-xl p-4 border border-blue-100 mb-6">
+      <p class="text-sm text-gray-700 leading-relaxed">
+        ここが最重要ポイントです。「HPを作りませんか？」という売り込みではなく、<strong class="text-primary">「勝手に作ってみたので、良ければ見てください！」</strong>という贈り物（ギブ）の姿勢で連絡します。これが返信率を爆発的に高める秘訣です。
+      </p>
+    </div>
+    <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg mb-4 relative">
+      <div class="bg-gray-700 px-4 py-3 flex justify-between items-center border-b border-gray-600">
+        <span class="text-xs font-bold text-gray-300 flex items-center"><span class="mr-1">✨</span> コピペOKメッセージ</span>
+        <button onclick="copyPrompt('prompt2')" class="text-xs bg-primary/80 hover:bg-primary text-white px-4 py-1.5 rounded-full transition-colors flex items-center shadow-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+          コピーする
+        </button>
+      </div>
+      <div class="p-5 overflow-x-auto text-sm text-gray-200 font-mono leading-relaxed whitespace-pre-wrap" id="prompt2">件名：【ご提案】[お店の名前]様のホームページを試作いたしました
+
+[お店の名前] ご担当者様
+
+突然のご連絡、誠に失礼いたします。
+[地域名]近郊でWeb制作活動をしております、[あなたの名前]と申します。
+
+日頃からGoogleマップをよく拝見しているのですが、[お店の名前]様の口コミに「[具体的な口コミ内容]」といった温かいお声が多く、大変魅力的なお店だと感じておりました。
+
+ネット上で検索したところ、専用のホームページがおありでないようでしたので、私のWeb制作の勉強も兼ねまして、[お店の名前]様の魅力がより伝わるようなデモサイトを勝手ながら作成してみました。
+
+スマートフォンからも見やすいよう整えております。お忙しい中恐縮ですが、もしよろしければ以下のURLよりご覧いただけますと幸いです。
+
+▼ [お店の名前]様 デモサイトURL
+[ここにNetlifyのURL]
+
+もしデザイン等を気に入っていただけて、今後の集客等に活用したいとお考えいただけましたら、ご負担の少ない形（月額制や買い切り等）でのご相談も可能です。
+
+もちろん、ご不要であればそのまま破棄していただいて問題ございません。その際のご返信も不要です。
+
+陰ながら、[お店の名前]様の益々のご発展をお祈り申し上げます。
+
+--------------------------------------------------
+[あなたの名前]
+Email：[連絡先メールアドレス]
+--------------------------------------------------</div>
+    </div>
+  </section>
+
+  <!-- 収益化の目安 -->
+  <section class="py-12 px-6 bg-gray-50 border-t border-gray-100">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">💰 収益化の目安とステップアップ</h2>
+    <p class="text-center text-gray-600 mb-8 text-sm">最初は実績作りに、慣れてきたら価格アップも◎</p>
+    <div class="bg-white shadow-md rounded-2xl p-6 border border-gray-100 mb-6">
+      <ul class="space-y-4">
+        <li class="flex items-center p-3 bg-gray-50 rounded-xl">
+          <span class="text-4xl mr-4 shrink-0">📄</span>
+          <div>
+            <span class="block font-bold text-gray-800">買い切りプラン</span>
+            <span class="text-primary font-bold text-lg">5万〜10万円</span>
+            <span class="block text-xs text-gray-500">ページをお渡しして完了</span>
+          </div>
+        </li>
+        <li class="flex items-center p-3 bg-gray-50 rounded-xl">
+          <span class="text-4xl mr-4 shrink-0">🔁</span>
+          <div>
+            <span class="block font-bold text-gray-800">月額サポートプラン</span>
+            <span class="text-primary font-bold text-lg">制作費3万円＋月額5,000〜1万円</span>
+            <span class="block text-xs text-gray-500">毎月の安定収入に繋がります！</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="text-center bg-accent/10 p-4 rounded-xl border border-accent/20">
+      <p class="text-sm text-gray-700 font-medium">
+        月にたった2〜3件成約するだけで、<span class="font-bold text-red-500">パート代を軽く超える収入</span>を在宅で得ることが可能です。
+      </p>
+    </div>
+  </section>
+
+  <!-- 安全ルール -->
+  <section class="py-12 px-6 bg-white border-t border-gray-100">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">⚠️ 必ず守るべき「3つの安全ルール」</h2>
+    <ul class="space-y-4 max-w-md mx-auto">
+      <li class="flex items-start bg-gray-50 p-4 rounded-2xl border border-gray-100">
+        <span class="text-2xl mr-3 shrink-0">📸</span>
+        <span class="text-sm text-gray-700 leading-relaxed"><strong>勝手に写真を使わない</strong><br>Googleマップの一般客の投稿写真をHPに流用するのは著作権NG。ダミー画像を使用し、契約後に正しい写真と差し替えます。</span>
+      </li>
+      <li class="flex items-start bg-gray-50 p-4 rounded-2xl border border-gray-100">
+        <span class="text-2xl mr-3 shrink-0">🏢</span>
+        <span class="text-sm text-gray-700 leading-relaxed"><strong>チェーン店には営業しない</strong><br>商標権の観点から、必ず個人経営のお店に絞ります。</span>
+      </li>
+      <li class="flex items-start bg-gray-50 p-4 rounded-2xl border border-gray-100">
+        <span class="text-2xl mr-3 shrink-0">📝</span>
+        <span class="text-sm text-gray-700 leading-relaxed"><strong>契約書を交わす</strong><br>クラウドソーシングサイトを経由するか、無料の「業務委託契約書」テンプレートを活用し、書面で合意を残します。</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- でも、正直に -->
+  <section class="py-16 px-6 bg-gray-800 text-white text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-8">
+                ⚠️ でも、正直にお伝えします。
+            </h2>
+
+            <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-8 max-w-lg mx-auto text-left">
+                ここまで読んで、「プロンプトが分かったから自分でもできそう！」と思ったかもしれません。<br><br>
+                でも実は…<br>
+                <strong class="text-white text-lg border-b-2 border-primary pb-1">「プロンプトを知っていること」と<br>「実際に継続して稼げること」は全く別物</strong><br>なんです。
+            </p>
+
+            <ul class="text-left max-w-md mx-auto space-y-4 mb-8 bg-gray-700/50 p-6 rounded-2xl border border-gray-600">
+                <li class="flex items-start">
+                    <span class="text-primary text-xl mr-3 shrink-0">🤔</span>
+                    <span class="text-gray-200 text-sm">最初の1件目の仕事はどうやって取るの？</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-primary text-xl mr-3 shrink-0">🤔</span>
+                    <span class="text-gray-200 text-sm">クライアントに選ばれる応募文の書き方は？</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-primary text-xl mr-3 shrink-0">🤔</span>
+                    <span class="text-gray-200 text-sm">「次もお願いします」と言われる納品のコツは？</span>
+                </li>
+            </ul>
+            
+            <p class="text-gray-300 mb-12">
+                ここでつまずいて、諦めてしまう方がいちばん多いんです🥺
+            </p>
+
+            <div class="bg-white text-gray-800 rounded-3xl p-6 sm:p-8 text-left relative mt-16 max-w-lg mx-auto shadow-2xl">
+                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-2 rounded-full font-bold border-4 border-white whitespace-nowrap shadow-md">
+                    💔 実は私も、大失敗だらけでした
+                </div>
+                <p class="text-sm sm:text-base leading-relaxed mt-4 mb-4">
+                    私自身、過去に自己流で副業に手を出し、なんと<br>
+                    <strong class="text-red-500 text-lg highlight-marker">150万円ものお金を失う</strong><br>
+                    という痛い経験をしています。
+                </p>
+                <p class="text-sm text-gray-600 mb-6 bg-gray-50 p-3 rounded-lg">
+                    「私には才能がないんだ…」とお布団の中で一人泣いた夜は数え切れません。
+                </p>
+                <p class="text-sm sm:text-base leading-relaxed">
+                    そこから必死に試行錯誤し、ようやく見つけたのが<strong class="text-gray-800">「AIを賢く活用し、手堅くお家で収入を作るための『実践ノウハウと神テンプレート』」</strong>でした。<br><br>
+                    私と今のあなたの違いは、才能ではありません。<br>
+                    <strong class="text-primary font-bold">「成果が出る『型』を知っていて、失敗を避ける方法を知っているかどうか」</strong><br>だけなんです。
+                </p>
+            </div>
+        </section>
+
+        <section class="py-16 px-6 bg-gradient-to-b from-[#fffcf7] to-[#ffe5d9]">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-white text-primary border border-primary/30 font-bold px-5 py-2 rounded-full text-sm mb-4 shadow-sm animate-bounce-slow">
+                    遠回りしたくないあなたへ。特別なプレゼント
+                </span>
+            </div>
+
+            <p class="text-center text-gray-800 text-base sm:text-lg leading-relaxed mb-8 max-w-lg mx-auto font-bold bg-yellow-100/50 p-4 rounded-2xl border border-yellow-200">
+                私がこれまでに体験した、150万円の損失からようやく掴み取った<br>
+                <span class="text-primary text-xl block mt-2">「3歳と1歳の2人育児でヘトヘトな私でも、寝かしつけ後の『たった1時間』で確実な成果を出せた【実践マニュアル】」</span><br>
+                をこの一冊に詰め込みました。
+            </p>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 max-w-lg mx-auto relative mb-12">
+                <div class="absolute -top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                    無料プレゼント中🎁
+                </div>
+                
+                <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">
+                    『AIマネタイズの教科書』
+                </h3>
+
+                <div class="mb-6 flex justify-center">
+                    <!-- 教科書の画像 -->
+                    <img alt="AIマネタイズの教科書" src="https://i.imgur.com/6RposMA_d.webp?maxwidth=760&fidelity=grand" class="rounded-lg shadow-md max-w-full h-auto object-contain" style="max-height: 250px;">
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                    <p class="font-bold text-center text-gray-800 mb-4 text-sm border-b border-gray-200 pb-2">
+                        📖 教科書の中身を少しだけご紹介！
+                    </p>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li class="flex items-start"><span class="mr-2 text-lg">💎</span><span class="pt-0.5"><strong>第一章:</strong> いま一番始めやすいAIマネタイズ手法</span></li>
+                        <li class="flex items-start"><span class="mr-2 text-lg">💎</span><span class="pt-0.5"><strong>第二章:</strong> ChatGPT収益化プロンプト</span></li>
+                        <li class="flex items-start"><span class="mr-2 text-lg">💎</span><span class="pt-0.5"><strong>第三章:</strong> AIマネタイズ神テンプレート</span></li>
+                        <li class="flex items-start"><span class="mr-2 text-lg">💎</span><span class="pt-0.5"><strong>第四章:</strong> マネタイズのための生成AIツール3選</span></li>
+                        <li class="flex items-start"><span class="mr-2 text-lg">💎</span><span class="pt-0.5"><strong>第五章:</strong> AI×SNSで収益を生むリアル事例</span></li>
+                    </ul>
+                </div>
+
+                <p class="text-sm text-gray-700 mt-6 leading-relaxed bg-white/80">
+                    本書では、<strong>「作業効率を劇的に上げる神テンプレート（第三章）」</strong>や、単発の仕事で終わらせないための<strong>「AI×SNSで毎月安定した収益を生むリアル事例（第五章）」</strong>など、自己流では必ずつまずいてしまうポイントを網羅しています。
+                </p>
+            </div>
+
+            <!-- クロージングとCTA -->
+            <div class="max-w-lg mx-auto text-center">
+                <p class="text-sm text-gray-700 mb-6 leading-relaxed">
+                    AIのトレンドは日々進化しています。<br>
+                    今のこの「初心者でも入りやすいボーナスタイム」がいつまで続くかは分かりません。だからこそ、今すぐこのノウハウを受け取って、確実な一歩を踏み出してほしいんです。<br><br>
+                    <strong class="text-primary text-base bg-white/80 px-2 py-1 rounded inline-block shadow-sm">まとまった時間がなくても大丈夫。<br>まずは子どもが寝た後の1時間、一緒に始めてみませんか？🌷</strong>
+                </p>
+
+                <!-- LINEボタン -->
+                <a href="https://sub.aione.co.jp/line/open/ISEBuerKAyih?mtid=dpdPEBMvLdsV" rel="noopener noreferrer" target="_blank" class="block w-full bg-[#06C755] hover:bg-[#05b34c] text-white text-center font-bold py-4 px-6 rounded-2xl shadow-xl transition-transform hover:scale-[1.02] active:scale-[0.98] mb-4 flex flex-col items-center justify-center relative overflow-hidden group animate-bounce-slow">
+                    <!-- 光るエフェクト -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+                    
+                    <span class="text-xs mb-1 font-medium bg-white/20 px-3 py-0.5 rounded-full inline-block">＼ タップして ／</span>
+                    <div class="flex items-center text-lg sm:text-xl relative z-10 mt-1">
+                        <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M23.929 10.318C23.929 4.622 18.571 0 11.96 0 5.351 0 0 4.622 0 10.318c0 5.093 4.148 9.387 9.873 10.155.39.083.91.24 1.047.55.123.277.08.625.04.86-.06.337-.384 2.29-.444 2.65-.098.583.473.81.93.593 1.134-.54 6.104-3.594 8.784-6.494 2.45-2.656 3.7-5.467 3.7-8.314z"/></svg>
+                        公式LINEで無料で受け取る
+                    </div>
+                </a>
+                
+                <style>
+                    @keyframes shimmer {
+                        100% { transform: translateX(100%); }
+                    }
+                </style>
+                
+                <p class="text-[10px] sm:text-xs text-gray-500 text-left bg-white/50 p-3 rounded-lg">
+                    ※現在のAI事情に合わせた最新ノウハウのため、期間限定の無料配布となります。予告なく配布を終了する場合がありますので、お早めにお受け取りください。
+                </p>
+            </div>
+        </section>
+
+  <footer class="bg-white py-8 border-t border-gray-100 text-center">
+    <a href="https://www.instagram.com/mina_ai_fukugyo/" rel="noopener noreferrer" target="_blank" class="inline-flex items-center justify-center text-gray-600 hover:text-primary transition-colors mb-4">
+      <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      <span class="text-sm font-medium">Instagram: @mina_ai_fukugyo</span>
+    </a>
+    <p class="text-xs text-gray-500 mb-1">みな ｜ AI×SNSで在宅収入を叶える主婦</p>
+    <p class="text-xs text-gray-400">&copy; 2026 @mina_ai_fukugyo. All Rights Reserved.</p>
+  </footer>
+
+</div>
+
+<script>
+function copyPrompt(elementId) {
+  const textToCopy = document.getElementById(elementId).innerText;
+  const toast = document.getElementById('copyToast');
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    toast.style.display = 'flex';
+    toast.style.animation = 'none';
+    toast.offsetHeight;
+    toast.style.animation = null;
+    setTimeout(() => { toast.style.display = 'none'; }, 2000);
+  }).catch(err => {
+    console.error('コピーに失敗しました', err);
+    fallbackCopyTextToClipboard(textToCopy, toast);
+  });
+}
+function fallbackCopyTextToClipboard(text, toast) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  try {
+    const successful = document.execCommand('copy');
+    if (successful) {
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+  } catch (err) {
+    console.error('Fallback: Oops, unable to copy', err);
+  }
+  document.body.removeChild(textArea);
+}
+</script>
+
+</body>
+</html>
